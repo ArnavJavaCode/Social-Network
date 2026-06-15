@@ -1,6 +1,9 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
+import my_project.model.BST;
+import my_project.model.Graphen;
+import my_project.view.BSTDarstellen;
 
 import java.awt.event.MouseEvent;
 
@@ -14,18 +17,16 @@ public class ProgramController {
 
 
     // Referenzen
-    private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
+    private BST bst;
+    private Graphen graphen;
+    private BSTDarstellen bstDarstellen;
+    private ViewController viewController;
 
-    /**
-     * Konstruktor
-     * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
-     * Damit der ProgramController auf das Fenster zugreifen kann, benötigt er eine Referenz auf das Objekt
-     * der Klasse viewController. Diese wird als Parameter übergeben.
-     * @param viewController das viewController-Objekt des Programms
-     */
-    public ProgramController(ViewController viewController){
-        this.viewController = viewController;
+
+    public ProgramController(ViewController viewcontroller) {
+        this.viewController = viewcontroller;
     }
+
 
     /**
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
