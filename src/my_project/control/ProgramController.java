@@ -3,7 +3,9 @@ package my_project.control;
 import KAGO_framework.control.ViewController;
 import my_project.model.BST;
 import my_project.model.Graphen;
-import my_project.view.BSTDarstellen;
+import my_project.view.BSTKnoten;
+import my_project.view.GraphikKante;
+import my_project.view.GraphikKnoten;
 
 import java.awt.event.MouseEvent;
 
@@ -19,8 +21,12 @@ public class ProgramController {
     // Referenzen
     private BST bst;
     private Graphen graphen;
-    private BSTDarstellen bstDarstellen;
+    private BSTKnoten bstDarstellen;
+    private GraphikKnoten graphikKnoten1 = new GraphikKnoten(500,500, "Bring");
+    private GraphikKnoten graphikKnoten2 = new GraphikKnoten(300,300, "Dring");
+    private GraphikKante graphikKante = new GraphikKante(graphikKnoten1, graphikKnoten2);
     private ViewController viewController;
+
 
 
     public ProgramController(ViewController viewcontroller) {
@@ -42,6 +48,11 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        graphikKnoten1.setStatus(2);
+        graphikKnoten2.setStatus(1);
+        viewController.draw(graphikKante);
+        viewController.draw(graphikKnoten1);
+        viewController.draw(graphikKnoten2);
 
     }
 

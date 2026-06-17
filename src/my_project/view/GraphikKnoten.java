@@ -24,30 +24,18 @@ public class GraphikKnoten extends GraphicalObject {
         else if (status == 2) drawTool.setCurrentColor(new Color(5, 210, 193)); // Grün
         else drawTool.setCurrentColor(new Color(200, 200, 200)); // Grau/Normal
 
-        drawTool.drawCircle(x, y, 25);
+        drawTool.drawFilledCircle(x, y, 25);
 
         // Rahmen und Text
-        drawTool.setCurrentColor(new Color(255, 255, 255));
-        drawTool.drawText(x - 10, y + 5, name);
+        drawTool.setCurrentColor(new Color(255, 0, 0));
+        drawTool.drawText(x - 14, y + 5, name);
     }
 
     public void setStatus(int pStatus) { this.status = pStatus; }
     public double getX() { return x; }
     public double getY() { return y; }
+
 }
 
 
-class GraphikKante extends GraphicalObject {
-    private GraphikKnoten start, ende;
 
-    public GraphikKante(GraphikKnoten pStart, GraphikKnoten pEnde) {
-        this.start = pStart;
-        this.ende = pEnde;
-    }
-
-    @Override
-    public void draw(DrawTool drawTool) {
-        drawTool.setCurrentColor(new Color(255, 255, 255));
-        drawTool.drawLine(start.getX(), start.getY(), ende.getX(), ende.getY());
-    }
-}
