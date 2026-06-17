@@ -8,7 +8,7 @@ import java.awt.*;
 public class GraphikKnoten extends GraphicalObject {
     private double x, y;
     private String name;
-    private int status; // 0: Normal, 1: Private (Rot), 2: Treffer (Blau)
+    private int status; // 0: Normal, 1: Private (Rot), 2: Treffer (Grün), 3: Angeschaut (Blau)
 
     public GraphikKnoten(double pX, double pY, String pName) {
         this.x = pX;
@@ -20,14 +20,15 @@ public class GraphikKnoten extends GraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         // Farbe basierend auf Status wählen
-        if (status == 1) drawTool.setCurrentColor(new Color(154, 7, 82)); // Gelb
-        else if (status == 2) drawTool.setCurrentColor(new Color(5, 210, 193)); // Grün
-        else drawTool.setCurrentColor(new Color(200, 200, 200)); // Grau/Normal
+        if (status == 1) drawTool.setCurrentColor(new Color(197, 43, 115)); // Gelb
+        else if (status == 2) drawTool.setCurrentColor(new Color(57, 168, 90)); // Grün
+        else if (status == 3) drawTool.setCurrentColor(new Color(5, 210, 193)); // Blau
+        else drawTool.setCurrentColor(new Color(207, 207, 207)); // Grau/Normal
 
         drawTool.drawFilledCircle(x, y, 25);
 
         // Rahmen und Text
-        drawTool.setCurrentColor(new Color(255, 0, 0));
+        drawTool.setCurrentColor(new Color(255, 255, 255));
         drawTool.drawText(x - 14, y + 5, name);
     }
 
