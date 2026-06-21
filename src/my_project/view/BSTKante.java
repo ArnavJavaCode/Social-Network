@@ -5,10 +5,10 @@ import KAGO_framework.view.DrawTool;
 
 import java.awt.*;
 
-public class GraphikKante extends GraphicalObject {
-    private GraphikKnoten start, ende;
+public class BSTKante extends GraphicalObject {
+    private BSTKnoten start, ende;
 
-    public GraphikKante(GraphikKnoten pStart, GraphikKnoten pEnde) {
+    public BSTKante(BSTKnoten pStart, BSTKnoten pEnde) {
         this.start = pStart;
         this.ende = pEnde;
     }

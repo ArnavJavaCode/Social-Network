@@ -2,16 +2,18 @@ package my_project.control;
 
 public class BreitensucheLogik {
 
+    /*
     // Globale Attribute (Das Gedächtnis der Klasse)
     private Graph meinGraph;
     private Queue<Vertex> queue;
     private boolean sucheAktiv;
 
-    /**
-     * SCHRITT 1: Bereitet die Suche vor.
-     * Wird vom Controller nur EINMAL am Anfang aufgerufen.
-     */
-    public void initialisiereSuche(Graph pGraph, Vertex pStartKnoten) {
+
+     // SCHRITT 1: Bereitet die Suche vor.
+     // Wird vom Controller nur EINMAL am Anfang aufgerufen.
+
+     public void initialisiereSuche(Graph pGraph, Vertex pStartKnoten) {
+
         this.meinGraph = pGraph;
         this.queue = new Queue<Vertex>();
 
@@ -25,11 +27,11 @@ public class BreitensucheLogik {
         this.sucheAktiv = true;
     }
 
-    /**
-     * SCHRITT 2: Führt exakt EINE Stufe der Breitensuche aus.
-     * Wird vom Controller im Timer (z.B. alle 0.5 Sekunden) aufgerufen.
-     * Gibt den Knoten zurück, der gerade verarbeitet wurde.
-     */
+
+     // SCHRITT 2: Führt exakt EINE Stufe der Breitensuche aus.
+     // Wird vom Controller im Timer (z.B. alle 0.5 Sekunden) aufgerufen.
+     // Gibt den Knoten zurück, der gerade verarbeitet wurde.
+
     public Vertex macheEinenSchritt() {
         // Wenn wir fertig sind oder die Suche nie gestartet wurde, brechen wir ab
         if (!this.sucheAktiv || this.queue.isEmpty()) {
@@ -61,11 +63,13 @@ public class BreitensucheLogik {
         return aktuellerKnoten;
     }
 
-    /**
-     * Eine kleine Hilfsmethode, falls Person 3 wissen muss,
-     * ob der Timer noch weiterlaufen soll.
-     */
+
+     // Eine kleine Hilfsmethode, falls Person 3 wissen muss,
+     // ob der Timer noch weiterlaufen soll.
+
     public boolean isSucheAktiv() {
         return this.sucheAktiv && !this.queue.isEmpty();
     }
+
+     */
 }
