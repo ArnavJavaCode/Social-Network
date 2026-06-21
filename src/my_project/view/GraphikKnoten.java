@@ -20,15 +20,17 @@ public class GraphikKnoten extends GraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         // Farbe basierend auf Status wählen
-        if (status == 1) drawTool.setCurrentColor(new Color(231, 85, 152)); // Gelb
-        else if (status == 2) drawTool.setCurrentColor(new Color(86, 204, 121)); // Grün
-        else if (status == 3) drawTool.setCurrentColor(new Color(87, 177, 199)); // Blau
+        if (status == 1) drawTool.setCurrentColor(new Color(231, 85, 152));     // Rot
+        else if (status == 2) drawTool.setCurrentColor(new Color(86, 204, 121));// Grün
+        else if (status == 3) drawTool.setCurrentColor(new Color(87, 177, 199));// Blau
         else drawTool.setCurrentColor(new Color(207, 207, 207)); // Grau/Normal
 
         drawTool.drawFilledCircle(x, y, 25);
+        drawTool.drawCircle(x, y, 30);
 
         drawTool.setCurrentColor(Color.WHITE);
         drawTool.drawCircle(x, y, 26);
+
 
         // Rahmen und Text
         drawTool.setCurrentColor(new Color(0, 0, 0));
