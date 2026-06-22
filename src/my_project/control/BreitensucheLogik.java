@@ -1,8 +1,13 @@
 package my_project.control;
 
+import KAGO_framework.model.abitur.datenstrukturen.Graph;
+import KAGO_framework.model.abitur.datenstrukturen.Vertex;
+import KAGO_framework.model.abitur.datenstrukturen.Queue;
+import KAGO_framework.model.abitur.datenstrukturen.List;
+
 public class BreitensucheLogik {
 
-    /*
+
     // Globale Attribute (Das Gedächtnis der Klasse)
     private Graph meinGraph;
     private Queue<Vertex> queue;
@@ -71,5 +76,5 @@ public class BreitensucheLogik {
         return this.sucheAktiv && !this.queue.isEmpty();
     }
 
-     */
+
 }
