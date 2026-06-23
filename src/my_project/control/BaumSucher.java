@@ -1,8 +1,12 @@
 package my_project.control;
 
+import KAGO_framework.model.abitur.datenstrukturen.BinarySearchTree;
+import KAGO_framework.model.abitur.datenstrukturen.List;
+
+
 public class BaumSucher {
 
-    /*
+
      // Startet die Suche und gibt eine Liste mit allen Treffern zurück.
      // Das ist die Methode, die der Controller (Person 3) später aufruft.
 
@@ -38,5 +42,5 @@ public class BaumSucher {
     }
 
 
-     */
+
 }
