@@ -25,22 +25,25 @@ public class GraphikKnoten extends GraphicalObject {
         else if (status == 3) drawTool.setCurrentColor(new Color(87, 177, 199));// Blau
         else drawTool.setCurrentColor(new Color(207, 207, 207)); // Grau/Normal
 
-        drawTool.drawFilledCircle(x, y, 25);
-        drawTool.drawCircle(x, y, 30);
+        drawTool.drawFilledCircle(x, y, 27);
+        drawTool.drawCircle(x, y, 32);
 
         drawTool.setCurrentColor(Color.WHITE);
-        drawTool.drawCircle(x, y, 26);
+        drawTool.drawCircle(x, y, 28);
 
 
         // Rahmen und Text
         drawTool.setCurrentColor(new Color(0, 0, 0));
-        drawTool.drawText(x - 14, y + 5, name);
+        drawTool.drawText(x - 18, y + 5, name);
     }
 
     public void setStatus(int pStatus) { this.status = pStatus; }
     public double getX() { return x; }
     public double getY() { return y; }
 
+    public String getName() {
+        return name;
+    }
 }
 
 

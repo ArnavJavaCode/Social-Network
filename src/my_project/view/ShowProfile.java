@@ -2,26 +2,27 @@ package my_project.view;
 
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
+import my_project.control.NutzerProfil;
 //import my_project.model.NutzerProfil;
 
 import java.awt.*;
 
 public class ShowProfile extends GraphicalObject {
 
-    //private NutzerProfil aktuellesProfil;
+    private NutzerProfil aktuellesProfil;
     private double breite;
     private double hoehe;
 
-    public ShowProfile(double pX, double pY) {
+    public ShowProfile(double pX, double pY,NutzerProfil profil) {
         // x und y bestimmen die obere linke Ecke der Profilkarte
         this.x = pX;
         this.y = pY;
         this.breite = 300;
         this.hoehe = 200;
-        //this.aktuellesProfil = null; // Startet unsichtbar/leer
+        this.aktuellesProfil = profil; // Startet unsichtbar/leer
     }
 
-    /*
+
     @Override
     public void draw(DrawTool drawTool) {
         // Wenn kein Profil gesetzt ist, zeichnen wir gar nichts
@@ -44,7 +45,7 @@ public class ShowProfile extends GraphicalObject {
 
         // 4. Details anzeigen (Alter, Hobby, Status)
         drawTool.setCurrentColor(Color.DARK_GRAY);
-        drawTool.drawText(x + 15, y + 70, "Alter: " + aktuellesProfil.getAlter() + " Jahre");
+        //drawTool.drawText(x + 15, y + 70, "Alter: " + aktuellesProfil.getAlter() + " Jahre");
         drawTool.drawText(x + 15, y + 105, "Hobby: " + aktuellesProfil.getHobby());
 
         // Zeile 3: Privatsphäre-Status
@@ -77,12 +78,16 @@ public class ShowProfile extends GraphicalObject {
         this.aktuellesProfil = null;
     }
 
-
-     // Prüft, ob die Ansicht gerade für den Benutzer sichtbar ist.
-
-    public boolean istSichtbar() {
-        return this.aktuellesProfil != null;
+    public boolean isClosed() {
+        if(this.aktuellesProfil == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
-     */
+
+
+
 }
