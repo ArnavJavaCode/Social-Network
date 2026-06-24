@@ -267,6 +267,9 @@ public class ProgramController {
                 }
                 String eingabe = JOptionPane.showInputDialog(null, infotext);
                 isDialogOffen = false;
+
+                AlleHobbys.toFirst(); // <-- damit die Eingabe geht
+
                 while(AlleHobbys.hasAccess()) {
                     if(eingabe.equals(AlleHobbys.getContent())) {
                         hobbyexistenz = true;
