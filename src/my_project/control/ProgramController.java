@@ -31,6 +31,7 @@ public class ProgramController {
     private BinarySearchTree socialTree;
     private List<GraphikKnoten> graphikKnoten;
     private List<GraphikKante> graphikKanten;
+    private List<String> AlleHobbys;
     private NutzerProfil jim;
     private NutzerProfil dan;
     private NutzerProfil lucy;
@@ -40,6 +41,7 @@ public class ProgramController {
     int[] manuelleYPositionen = {300, 300, 300, 500};
     private boolean isDialogOffen = false;
     private boolean tasteGedrueckt = false;
+    private boolean hobbyexistenz = false;
     public ProgramController(ViewController viewcontroller) {
         this.viewController = viewcontroller;
 
@@ -52,6 +54,7 @@ public class ProgramController {
 
         graphikKnoten = new List<>();
         graphikKanten = new List<>();
+        AlleHobbys = new List<>();
     }
 
     private GraphikKnoten findeGraphikKnoten(String id)
@@ -179,14 +182,11 @@ public class ProgramController {
 
 
     public void sucheHobbyImSuchbaum(String hobby) {
-
         List<NutzerProfil> treffer = baumSucher.sucheNachHobby(bst, hobby);
-
         treffer.toFirst();
         if (!treffer.hasAccess()) {
             return;
         }
-
         if (treffer.hasAccess()) {
             NutzerProfil profil = treffer.getContent();
 
@@ -205,8 +205,13 @@ public class ProgramController {
     public void startProgram() {
         jim = new NutzerProfil("Jimmy", "Klavier", false);
         dan = new NutzerProfil("Danskie", "Programmieren", false);
-        lucy = new NutzerProfil("lucy", "Klavier", false);
+        lucy = new NutzerProfil("lucy", "Gitarre", false);
         nathan = new NutzerProfil("Nathan", "Fußball", false);
+
+        AlleHobbys.append(jim.getHobby());
+        AlleHobbys.append(dan.getHobby());
+        AlleHobbys.append(lucy.getHobby());
+        AlleHobbys.append(nathan.getHobby());
 
         bst.insert(dan);
         bst.insert(jim);
@@ -247,10 +252,39 @@ public class ProgramController {
             if (!tasteGedrueckt && !isDialogOffen) {
                 tasteGedrueckt = true;
                 isDialogOffen = true;
-                String eingabe = JOptionPane.showInputDialog(null, "Nach welchem Hobby willst du suchen?");
+                hobbyexistenz = false;
+
+                String infotext = "Nach welchem Hobby wollen sie suchen?\nVerfügbare Hobbys: ";
+                AlleHobbys.toFirst();
+                AlleHobbys.toFirst();
+                while (AlleHobbys.hasAccess()) {
+                    infotext += AlleHobbys.getContent();
+                    AlleHobbys.next();
+
+                    if (AlleHobbys.hasAccess()) {
+                        infotext += ", ";
+                    }
+                }
+                String eingabe = JOptionPane.showInputDialog(null, infotext);
                 isDialogOffen = false;
-                if (eingabe != null && !eingabe.isEmpty())
+                while(AlleHobbys.hasAccess()) {
+                    if(eingabe.equals(AlleHobbys.getContent())) {
+                        hobbyexistenz = true;
+                        break;
+                    }
+                    else {
+                        hobbyexistenz = false;
+                    }
+                    AlleHobbys.next();
+                }
+                if (eingabe != null && !eingabe.isEmpty() && hobbyexistenz) {
                     sucheHobbyImSuchbaum(eingabe);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Eingabe geht nicht!");
+                    tasteGedrueckt = false;
+                }
+
             }
         }
         else {
