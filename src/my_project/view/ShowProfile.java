@@ -54,9 +54,9 @@ public class ShowProfile extends GraphicalObject {
         String statusText = aktuellesProfil.isPrivate() ? "Privates Profil" : "Öffentliches Profil";
 
         if (aktuellesProfil.isPrivate()) {
-            drawTool.setCurrentColor(new Color(154, 7, 82)); // Dunkelrot für privat
+            drawTool.setCurrentColor(new Color(182, 17, 102)); // Dunkelrot für privat
         } else {
-            drawTool.setCurrentColor(new Color(3, 106, 32));  // Grün für öffentlich
+            drawTool.setCurrentColor(new Color(32, 147, 65));  // Grün für öffentlich
         }
 //-----
         drawTool.drawText(x + 15, y + 140, "Status: " + statusText);

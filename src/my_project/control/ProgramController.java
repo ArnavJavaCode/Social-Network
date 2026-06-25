@@ -281,7 +281,7 @@ public class ProgramController {
     public void startProgram() {
         jim = new NutzerProfil("Jimmy", "Klavier", false);
         dan = new NutzerProfil("Danskie", "Programmieren", true);
-        lucy = new NutzerProfil("lucy", "Klavier", false);
+        lucy = new NutzerProfil("Lucy", "Klavier", false);
         nathan = new NutzerProfil("Nathan", "Fußball", false);
         Doakes = new NutzerProfil("Doakes", "Gitarre", false);
         Jimmy = new NutzerProfil("Dan", "Programmieren", false);

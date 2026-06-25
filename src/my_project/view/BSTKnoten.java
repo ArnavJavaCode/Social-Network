@@ -22,26 +22,79 @@ public class BSTKnoten extends GraphicalObject {
     }
 
     public void draw(DrawTool drawTool) {
-        // Farbe basierend auf Status wählen
-        if (status == 1) drawTool.setCurrentColor(new Color(233, 85, 152));     // Rot
-        else if (status == 2) drawTool.setCurrentColor(new Color(86, 204, 121));// Grün
-        else if (status == 3) drawTool.setCurrentColor(new Color(87, 177, 199));// Blau
-        else drawTool.setCurrentColor(new Color(207, 207, 207)); // Grau/Normal
 
-        drawTool.drawFilledCircle(x, y, 25);
+        // Grundfarbe passend zum Status bestimmen
+
+        Color statusFarbe = switch (status) {
+            case 1 -> new Color(233, 85, 152);       // Rot / Pink
+            case 2 -> new Color(86, 204, 121);       // Grün
+            case 3 -> new Color(87, 177, 199);       // Blau
+            default -> new Color(170, 170, 180);     // Grau / Normal
+        };
+
+// Äußerer, schwacher Glow
+        drawTool.setCurrentColor(new Color(
+                statusFarbe.getRed(),
+                statusFarbe.getGreen(),
+                statusFarbe.getBlue(),
+                45
+        ));
+        drawTool.drawFilledCircle(x, y, 36);
+
+// Mittlerer Glow
+        drawTool.setCurrentColor(new Color(
+                statusFarbe.getRed(),
+                statusFarbe.getGreen(),
+                statusFarbe.getBlue(),
+                85
+        ));
+        drawTool.drawFilledCircle(x, y, 33);
+
+// Leuchtender Außenring
+        drawTool.setCurrentColor(new Color(
+                statusFarbe.getRed(),
+                statusFarbe.getGreen(),
+                statusFarbe.getBlue(),
+                150
+        ));
+        drawTool.drawFilledCircle(x, y, 30);
+
+// Dunkler Hintergrund für mehr Kontrast
+        drawTool.setCurrentColor(new Color(25, 25, 40));
+        drawTool.drawFilledCircle(x, y, 27);
+
+// Farbiger Innenkreis
+        drawTool.setCurrentColor(statusFarbe);
+        drawTool.drawFilledCircle(x, y, 24);
+
+// Heller innerer Rahmen
+        drawTool.setCurrentColor(new Color(
+                Math.min(statusFarbe.getRed() + 60, 255),
+                Math.min(statusFarbe.getGreen() + 60, 255),
+                Math.min(statusFarbe.getBlue() + 60, 255),
+                220
+        ));
+        drawTool.drawCircle(x, y, 25);
+
+// Äußerer Rahmen
+        drawTool.setCurrentColor(new Color(
+                statusFarbe.getRed(),
+                statusFarbe.getGreen(),
+                statusFarbe.getBlue(),
+                220
+        ));
         drawTool.drawCircle(x, y, 30);
 
+
+        // Text ungefähr zentrieren
         drawTool.setCurrentColor(Color.WHITE);
-        drawTool.drawCircle(x, y, 26);
-        drawTool.drawCircle(x, y, 30);
+        double zeichenBreite = 6.85; // eventuell je nach Schriftart anpassen
+        double textBreite = name.length() * zeichenBreite;
 
-        drawTool.setCurrentColor(Color.WHITE);
-        drawTool.drawCircle(x, y, 26);
-        drawTool.drawCircle(x, y, 30);
+        double textX = (x - textBreite / 2);
+        double textY = (y + 5);
 
-        // Rahmen und Text
-        drawTool.setCurrentColor(new Color(0, 0, 0));
-        drawTool.drawText(x - 14, y + 5, name);
+        drawTool.drawText(textX, textY, name);
     }
 
     //public NutzerProfil getProfil() { return profil; }
