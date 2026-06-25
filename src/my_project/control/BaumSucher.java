@@ -10,7 +10,7 @@ public class BaumSucher {
     // Startet die Suche und gibt eine Liste mit allen Treffern zurück.
     // Das ist die Methode, die der Controller (Person 3) später aufruft.
 
-    public List<NutzerProfil> sucheNachHobbyName(BinarySearchTree<NutzerProfil> pTree, String psuch) {
+    public List<NutzerProfil> sucheNachHobby(BinarySearchTree<NutzerProfil> pTree, String psuch) {
         List<NutzerProfil> ergebnisListe = new List<NutzerProfil>();
         durchsucheInorder(pTree, psuch, ergebnisListe);
         return ergebnisListe;

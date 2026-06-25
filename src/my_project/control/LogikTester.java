@@ -74,7 +74,7 @@ public class LogikTester {
 
         // 3. Deine Logik-Klasse nutzen
         BaumSucher sucher = new BaumSucher();
-        List<NutzerProfil> ergebnis = sucher.sucheNachHobbyName(baum, "Gaming");
+        List<NutzerProfil> ergebnis = sucher.sucheNachHobby(baum, "Gaming");
 
         // 4. Ergebnis auf der Konsole ausgeben
         System.out.println("Suche nach 'Gaming' in öffentlichen Profilen:");
