@@ -2,6 +2,8 @@ package my_project.control;
 
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.*;
+import my_project.model.BST;
+import my_project.model.Graphen;
 import my_project.view.*;
 
 import javax.swing.*;
@@ -14,6 +16,8 @@ import java.security.Key;
  * mit jeder Frame im laufenden Programm aufgerufen.
  */
 public class ProgramController {
+
+    //Attribute
 
 
     // Referenzen
@@ -35,9 +39,14 @@ public class ProgramController {
     private NutzerProfil dan;
     private NutzerProfil lucy;
     private NutzerProfil nathan;
+    private NutzerProfil Doakes;
+    private NutzerProfil Jimmy;
+    private NutzerProfil Nancy;
+    private NutzerProfil Assad;
 
-    int[] manuelleXPositionen = {200, 400, 600, 400};
-    int[] manuelleYPositionen = {300, 300, 300, 500};
+
+    int[] manuelleXPositionen = {200, 400, 600, 400, 100, 150, 200, 250};
+    int[] manuelleYPositionen = {300, 300, 300, 500, 300, 350, 400, 450};
     private boolean isDialogOffen = false;
     private boolean tasteGedrueckt = false;
     private boolean hobbyexistenz = false;
@@ -205,6 +214,25 @@ public class ProgramController {
     }
 
 
+    private void fuegeHobbyHinzu(String neuesHobby) {
+        AlleHobbys.toFirst();
+        boolean existiertSchon = false;
+
+        // Prüfen, ob das Hobby schon in der Liste ist
+        while(AlleHobbys.hasAccess()) {
+            if(AlleHobbys.getContent().equals(neuesHobby)) {
+                existiertSchon = true;
+                break; // Abbrechen, wir haben es schon gefunden!
+            }
+            AlleHobbys.next();
+        }
+
+        // Nur hinzufügen, wenn es noch nicht existiert
+        if(!existiertSchon) {
+            AlleHobbys.append(neuesHobby);
+        }
+    }
+
     /**
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
      */
@@ -213,26 +241,46 @@ public class ProgramController {
         dan = new NutzerProfil("Danskie", "Programmieren", false);
         lucy = new NutzerProfil("lucy", "Klavier", false);
         nathan = new NutzerProfil("Nathan", "Fußball", false);
+        Doakes = new NutzerProfil("Doakes", "Gitarre", false);
+        Jimmy = new NutzerProfil("Dan", "Programmieren", false);
+        Nancy = new NutzerProfil("Nancy", "Gitarre", false);
+        Assad = new NutzerProfil("Assad", "Fußball", false);
 
-        AlleHobbys.append(jim.getHobby());
-        AlleHobbys.append(dan.getHobby());
-        AlleHobbys.append(nathan.getHobby());
+        fuegeHobbyHinzu(jim.getHobby());
+        fuegeHobbyHinzu(dan.getHobby());
+        fuegeHobbyHinzu(lucy.getHobby());
+        fuegeHobbyHinzu(nathan.getHobby());
+        fuegeHobbyHinzu(Doakes.getHobby());
+        fuegeHobbyHinzu(Jimmy.getHobby());
+        fuegeHobbyHinzu(Nancy.getHobby());
+        fuegeHobbyHinzu(Assad.getHobby());
 
         bst.insert(dan);
         bst.insert(jim);
         bst.insert(lucy);
         bst.insert(nathan);
-
+        bst.insert(Doakes);
+        bst.insert(Jimmy);
+        bst.insert(Nancy);
+        bst.insert(Assad);
 
         Vertex jimV = new Vertex(jim.getNutzername());
         Vertex danV = new Vertex(dan.getNutzername());
         Vertex lucyV = new Vertex(lucy.getNutzername());
         Vertex nathanV = new Vertex(nathan.getNutzername());
+        Vertex DoakesV = new Vertex(Doakes.getNutzername());
+        Vertex JimmyV = new Vertex(Jimmy.getNutzername());
+        Vertex NancyV = new Vertex(Nancy.getNutzername());
+        Vertex AssadV = new Vertex(Assad.getNutzername());
 
         socialGraph.addVertex(danV);
         socialGraph.addVertex(jimV);
         socialGraph.addVertex(lucyV);
         socialGraph.addVertex(nathanV);
+        socialGraph.addVertex(DoakesV);
+        socialGraph.addVertex(JimmyV);
+        socialGraph.addVertex(NancyV);
+        socialGraph.addVertex(AssadV);
 
 
         socialGraph.addEdge(new Edge(jimV, danV, 1));
@@ -240,6 +288,10 @@ public class ProgramController {
         socialGraph.addEdge(new Edge(danV, lucyV, 1));
         socialGraph.addEdge(new Edge(nathanV, lucyV, 1));
         socialGraph.addEdge(new Edge(danV, nathanV, 1));
+        socialGraph.addEdge(new Edge(danV, DoakesV, 1));
+        socialGraph.addEdge(new Edge(danV, JimmyV, 1));
+        socialGraph.addEdge(new Edge(danV, NancyV, 1));
+        socialGraph.addEdge(new Edge(danV, AssadV, 1));
 
         visualisiereGraph();
         visualisiereSuchbaum();
