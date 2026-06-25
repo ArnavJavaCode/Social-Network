@@ -110,6 +110,13 @@ public class ProgramController {
             }
 
             GraphikKnoten g = new GraphikKnoten(x, y, v.getID());
+
+            NutzerProfil profil = baumSucher.findeProfilImmer(bst, v.getID());
+
+            if (profil != null && profil.isPrivate()) {
+                g.setStatus(1);
+            }
+
             graphikKnoten.append(g);
 
 
@@ -193,6 +200,7 @@ public class ProgramController {
 
     public void sucheHobbyImSuchbaum(String hobby) {
         List<NutzerProfil> treffer = baumSucher.sucheNachHobby(bst, hobby);
+        if(treffer != null && !treffer.isEmpty()) {
         treffer.toFirst();
         int xpos = -100;
         while (treffer.hasAccess()) {
@@ -219,13 +227,31 @@ public class ProgramController {
             GraphikKnoten gk = findeGraphikKnoten(profil.getNutzername());
             erkanteGraphen.append(gk);
 
-            if (gk != null) {
-                profilesoffen = true;
-                gk.setStatus(2);
-                viewController.draw(showtreffer);
+                if (gk != null) {
+                    profilesoffen = true;
+                    gk.setStatus(2);
+                    viewController.draw(showtreffer);
+                }
+
+                treffer.next();
+            }
+        }
+        else {
+            boolean hobbyIstEigentlichPrivat = false;
+
+            graphikKnoten.toFirst();
+            while (graphikKnoten.hasAccess()) {
+                NutzerProfil p = baumSucher.findeProfilImmer(bst, graphikKnoten.getContent().getName());
+                if (p != null && p.getHobby().equalsIgnoreCase(hobby) && p.isPrivate()) {
+                    hobbyIstEigentlichPrivat = true;
+                    break;
+                }
+                graphikKnoten.next();
             }
 
-            treffer.next();
+            if (hobbyIstEigentlichPrivat) {
+                JOptionPane.showMessageDialog(null, "Dieses Hobby wird nur von privaten Profilen ausgeübt!");
+            }
         }
     }
 
@@ -254,7 +280,7 @@ public class ProgramController {
      */
     public void startProgram() {
         jim = new NutzerProfil("Jimmy", "Klavier", false);
-        dan = new NutzerProfil("Danskie", "Programmieren", false);
+        dan = new NutzerProfil("Danskie", "Programmieren", true);
         lucy = new NutzerProfil("lucy", "Klavier", false);
         nathan = new NutzerProfil("Nathan", "Fußball", false);
         Doakes = new NutzerProfil("Doakes", "Gitarre", false);
