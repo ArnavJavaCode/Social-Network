@@ -10,16 +10,18 @@ import java.awt.*;
 public class ShowProfile extends GraphicalObject {
 
     private NutzerProfil aktuellesProfil;
+    private int bekanntschaftsgrad;
     private double breite;
     private double hoehe;
 
-    public ShowProfile(double pX, double pY,NutzerProfil profil) {
+    public ShowProfile(double pX, double pY,NutzerProfil profil, int pGrad) {
         // x und y bestimmen die obere linke Ecke der Profilkarte
         this.x = pX;
         this.y = pY;
         this.breite = 250;
         this.hoehe = 200;
         this.aktuellesProfil = profil; // Startet unsichtbar/leer
+        this.bekanntschaftsgrad = pGrad;
     }
 
 
@@ -56,12 +58,29 @@ public class ShowProfile extends GraphicalObject {
         } else {
             drawTool.setCurrentColor(new Color(3, 106, 32));  // Grün für öffentlich
         }
-
+//-----
         drawTool.drawText(x + 15, y + 140, "Status: " + statusText);
+
+        drawTool.setCurrentColor(Color.BLUE); // Oder eine Farbe deiner Wahl
+        String gradText = "";
+
+        if (bekanntschaftsgrad == 0) {
+            gradText = "Das bist du selbst";
+        } else if (bekanntschaftsgrad == 1) {
+            gradText = "Direkter Freund (Grad 1)";
+        } else if (bekanntschaftsgrad > 1) {
+            gradText = "Über " + bekanntschaftsgrad + " Ecken (Grad " + bekanntschaftsgrad + ")";
+        } else {
+            gradText = "Keine Verbindung";
+        }
+
+        drawTool.drawText(x + 15, y + 165, "Verbindung: " + gradText);
+//------
 
         // 5. Schließen-Hinweis für den Benutzer
         drawTool.setCurrentColor(Color.GRAY);
         drawTool.drawText(x + 15, y + 185, "[Klicke irgendwo, um zu schließen]");
+
     }
 
 

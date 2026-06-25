@@ -198,7 +198,23 @@ public class ProgramController {
         while (treffer.hasAccess()) {
             NutzerProfil profil = treffer.getContent();
             xpos+=270;
-            showtreffer = new ShowProfile(xpos, 40, profil);
+
+            // 1. Finde die Knoten im Graphen
+            // (Hinweis: Falls eure Graph-Variable im Controller nicht "socialGraph" heißt,
+            // passe den Namen hier einfach an eure Variable an, z.B. "meinGraph" oder "graph")
+            Vertex mainNutzer = socialGraph.getVertex("Danskie");
+            Vertex gesuchterNutzer = socialGraph.getVertex(profil.getNutzername());
+
+            // 2. Berechne den Grad über deine Breitensuche
+            int grad = -1;
+            if(mainNutzer != null && gesuchterNutzer != null) {
+                grad = bsl.ermittleBekanntschaftsgrad(socialGraph, mainNutzer, gesuchterNutzer);
+            }
+
+            // 3. Erstelle die Profilkarte MIT dem berechneten Grad (grad als 4. Parameter übergeben!)
+            showtreffer = new ShowProfile(xpos, 40, profil, grad);
+            //showtreffer = new ShowProfile(xpos, 40, profil);
+
             offeneFenster.append(showtreffer);
             GraphikKnoten gk = findeGraphikKnoten(profil.getNutzername());
             erkanteGraphen.append(gk);
@@ -285,7 +301,7 @@ public class ProgramController {
 
         socialGraph.addEdge(new Edge(jimV, danV, 1));
         socialGraph.addEdge(new Edge(jimV, lucyV, 1));
-        socialGraph.addEdge(new Edge(danV, lucyV, 1));
+        //socialGraph.addEdge(new Edge(danV, lucyV, 1));
         socialGraph.addEdge(new Edge(nathanV, lucyV, 1));
         socialGraph.addEdge(new Edge(danV, nathanV, 1));
         socialGraph.addEdge(new Edge(danV, DoakesV, 1));
