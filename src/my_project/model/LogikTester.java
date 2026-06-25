@@ -1,4 +1,4 @@
-package my_project.control;
+package my_project.model;
 
 import KAGO_framework.model.abitur.datenstrukturen.BinarySearchTree;
 import KAGO_framework.model.abitur.datenstrukturen.Graph;

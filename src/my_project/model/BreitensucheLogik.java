@@ -1,4 +1,4 @@
-package my_project.control;
+package my_project.model;
 
 import KAGO_framework.model.abitur.datenstrukturen.Graph;
 import KAGO_framework.model.abitur.datenstrukturen.List;
@@ -79,34 +79,27 @@ public class BreitensucheLogik {
     public int ermittleBekanntschaftsgrad(Graph pGraph, Vertex startKnoten, Vertex zielKnoten) {
         if (startKnoten == null || zielKnoten == null) return -1;
 
-        // Sind es dieselben Personen? Dann Distanz 0
         if (startKnoten.getID().equals(zielKnoten.getID())) return 0;
 
-        // 1. Graphen für die Suche vorbereiten (alle Markierungen löschen)
         pGraph.setAllVertexMarks(false);
 
-        // 2. Queues vorbereiten
         Queue<Vertex> knotenQueue = new Queue<>();
-        Queue<Integer> distanzQueue = new Queue<>(); // Speichert die jeweilige Distanz
+        Queue<Integer> distanzQueue = new Queue<>();
 
-        // 3. Startknoten einfügen
         knotenQueue.enqueue(startKnoten);
-        distanzQueue.enqueue(0); // Der Startknoten hat Distanz 0 zu sich selbst
+        distanzQueue.enqueue(0);
         startKnoten.setMark(true);
 
-        // 4. Die Welle breitet sich aus...
         while (!knotenQueue.isEmpty()) {
             Vertex aktuell = knotenQueue.front();
             int aktuelleDistanz = distanzQueue.front();
             knotenQueue.dequeue();
             distanzQueue.dequeue();
 
-            // Haben wir das Ziel gefunden?
             if (aktuell.getID().equals(zielKnoten.getID())) {
                 return aktuelleDistanz;
             }
 
-            // Wenn nicht: Alle unbesuchten Nachbarn in die Queue packen
             List<Vertex> nachbarn = pGraph.getNeighbours(aktuell);
             nachbarn.toFirst();
             while (nachbarn.hasAccess()) {
@@ -114,14 +107,12 @@ public class BreitensucheLogik {
                 if (!nachbar.isMarked()) {
                     nachbar.setMark(true);
                     knotenQueue.enqueue(nachbar);
-                    // Der Nachbar ist eine Ecke weiter weg als der aktuelle Knoten
                     distanzQueue.enqueue(aktuelleDistanz + 1);
                 }
                 nachbarn.next();
             }
         }
 
-        // Wenn die Queue leer ist und das Ziel nicht gefunden wurde:
         return -1;
     }
 }

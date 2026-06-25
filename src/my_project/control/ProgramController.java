@@ -2,14 +2,14 @@ package my_project.control;
 
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.*;
-import my_project.model.BST;
-import my_project.model.Graphen;
+import my_project.model.BaumSucher;
+import my_project.model.BreitensucheLogik;
+import my_project.model.NutzerProfil;
 import my_project.view.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.security.Key;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -186,10 +186,8 @@ public class ProgramController {
 
         BSTKnoten aktuellerKnoten = new BSTKnoten(x, y, name);
 
-        // --- HIER PASSIERT DIE MAGIE ---
-        // Wenn gerade ein Hobby gesucht wird UND die Person dieses Hobby hat UND öffentlich ist:
         if (hobbyZuFaerben != null && profil.getHobby().equalsIgnoreCase(hobbyZuFaerben) && !profil.isPrivate()) {
-            aktuellerKnoten.setStatus(2); // Direkt beim Zeichnen blau färben!
+            aktuellerKnoten.setStatus(2);
         }
 
         viewController.draw(aktuellerKnoten);
@@ -217,19 +215,16 @@ public class ProgramController {
             NutzerProfil profil = treffer.getContent();
             xpos+=270;
 
-            // 1. Finde die Knoten im Graphen
-            // (Hinweis: Falls eure Graph-Variable im Controller nicht "socialGraph" heißt,
-            // passe den Namen hier einfach an eure Variable an, z.B. "meinGraph" oder "graph")
             Vertex mainNutzer = socialGraph.getVertex("Danskie");
             Vertex gesuchterNutzer = socialGraph.getVertex(profil.getNutzername());
 
-            // 2. Berechne den Grad über deine Breitensuche
+
             int grad = -1;
             if(mainNutzer != null && gesuchterNutzer != null) {
                 grad = bsl.ermittleBekanntschaftsgrad(socialGraph, mainNutzer, gesuchterNutzer);
             }
 
-            // 3. Erstelle die Profilkarte MIT dem berechneten Grad (grad als 4. Parameter übergeben!)
+
             showtreffer = new ShowProfile(xpos, 40, profil, grad);
             //showtreffer = new ShowProfile(xpos, 40, profil);
 

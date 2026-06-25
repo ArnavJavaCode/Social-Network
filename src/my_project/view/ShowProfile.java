@@ -2,7 +2,7 @@ package my_project.view;
 
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
-import my_project.control.NutzerProfil;
+import my_project.model.NutzerProfil;
 //import my_project.model.NutzerProfil;
 
 import java.awt.*;
