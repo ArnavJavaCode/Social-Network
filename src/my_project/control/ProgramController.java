@@ -2,21 +2,18 @@ package my_project.control;
 
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.*;
-import my_project.model.BST;
-import my_project.model.Graphen;
 import my_project.view.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.security.Key;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
  * mit jeder Frame im laufenden Programm aufgerufen.
  */
 public class ProgramController {
-
-    //Attribute
 
 
     // Referenzen
@@ -31,6 +28,8 @@ public class ProgramController {
     private BinarySearchTree socialTree;
     private List<GraphikKnoten> graphikKnoten;
     private List<GraphikKante> graphikKanten;
+    private List<GraphikKnoten>  erkanteGraphen;
+    private List<ShowProfile> offeneFenster;
     private List<String> AlleHobbys;
     private NutzerProfil jim;
     private NutzerProfil dan;
@@ -42,6 +41,7 @@ public class ProgramController {
     private boolean isDialogOffen = false;
     private boolean tasteGedrueckt = false;
     private boolean hobbyexistenz = false;
+    private boolean profilesoffen = false;
     public ProgramController(ViewController viewcontroller) {
         this.viewController = viewcontroller;
 
@@ -55,6 +55,8 @@ public class ProgramController {
         graphikKnoten = new List<>();
         graphikKanten = new List<>();
         AlleHobbys = new List<>();
+        offeneFenster = new List<>();
+        erkanteGraphen = new List<>();
     }
 
     private GraphikKnoten findeGraphikKnoten(String id)
@@ -99,7 +101,6 @@ public class ProgramController {
             }
 
             GraphikKnoten g = new GraphikKnoten(x, y, v.getID());
-
             graphikKnoten.append(g);
 
 
@@ -184,20 +185,25 @@ public class ProgramController {
     public void sucheHobbyImSuchbaum(String hobby) {
         List<NutzerProfil> treffer = baumSucher.sucheNachHobby(bst, hobby);
         treffer.toFirst();
-        if (!treffer.hasAccess()) {
-            return;
-        }
-        if (treffer.hasAccess()) {
+        int xpos = -100;
+        while (treffer.hasAccess()) {
             NutzerProfil profil = treffer.getContent();
-
-            showtreffer = new ShowProfile(650, 80, profil);
+            xpos+=270;
+            showtreffer = new ShowProfile(xpos, 40, profil);
+            offeneFenster.append(showtreffer);
             GraphikKnoten gk = findeGraphikKnoten(profil.getNutzername());
+            erkanteGraphen.append(gk);
+
             if (gk != null) {
+                profilesoffen = true;
                 gk.setStatus(2);
                 viewController.draw(showtreffer);
             }
+
+            treffer.next();
         }
     }
+
 
     /**
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
@@ -205,12 +211,11 @@ public class ProgramController {
     public void startProgram() {
         jim = new NutzerProfil("Jimmy", "Klavier", false);
         dan = new NutzerProfil("Danskie", "Programmieren", false);
-        lucy = new NutzerProfil("lucy", "Gitarre", false);
+        lucy = new NutzerProfil("lucy", "Klavier", false);
         nathan = new NutzerProfil("Nathan", "Fußball", false);
 
         AlleHobbys.append(jim.getHobby());
         AlleHobbys.append(dan.getHobby());
-        AlleHobbys.append(lucy.getHobby());
         AlleHobbys.append(nathan.getHobby());
 
         bst.insert(dan);
@@ -239,6 +244,7 @@ public class ProgramController {
         visualisiereGraph();
         visualisiereSuchbaum();
 
+
     }
 
     /**
@@ -249,7 +255,7 @@ public class ProgramController {
      */
     public void updateProgram(double dt){
         if(viewController.isKeyDown(KeyEvent.VK_SPACE)) {
-            if (!tasteGedrueckt && !isDialogOffen) {
+            if (!tasteGedrueckt && !isDialogOffen && offeneFenster.isEmpty()) {
                 tasteGedrueckt = true;
                 isDialogOffen = true;
                 hobbyexistenz = false;
@@ -267,8 +273,7 @@ public class ProgramController {
                 }
                 String eingabe = JOptionPane.showInputDialog(null, infotext);
                 isDialogOffen = false;
-
-                AlleHobbys.toFirst(); // <-- damit die Eingabe geht
+                AlleHobbys.toFirst();
 
                 while(AlleHobbys.hasAccess()) {
                     if(eingabe.equals(AlleHobbys.getContent())) {
@@ -285,7 +290,6 @@ public class ProgramController {
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Eingabe geht nicht!");
-                    tasteGedrueckt = false;
                 }
 
             }
@@ -301,6 +305,28 @@ public class ProgramController {
      * @param e das Objekt enthält alle Informationen zum Klick
      */
     public void mouseClicked(MouseEvent e){
+        if (!offeneFenster.isEmpty()) {
+            profilesoffen = false;
+            erkanteGraphen.toFirst();
+            while (erkanteGraphen.hasAccess()) {
+                erkanteGraphen.getContent().setStatus(4);
+                erkanteGraphen.next();
+            }
+            offeneFenster.toFirst();
 
+            while (offeneFenster.hasAccess()) {
+                ShowProfile aktuellesFenster = offeneFenster.getContent();
+
+                viewController.removeDrawable(aktuellesFenster);
+
+                offeneFenster.next();
+            }
+
+            offeneFenster.toFirst();
+            while (!offeneFenster.isEmpty()) {
+                offeneFenster.remove();
+            }
+
+        }
     }
 }

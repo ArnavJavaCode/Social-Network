@@ -38,6 +38,7 @@ public class GraphikKnoten extends GraphicalObject {
     }
 
     public void setStatus(int pStatus) { this.status = pStatus; }
+    public int getStatus() {return this.status;}
     public double getX() { return x; }
     public double getY() { return y; }
 

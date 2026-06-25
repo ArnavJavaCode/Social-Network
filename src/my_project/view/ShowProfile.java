@@ -17,7 +17,7 @@ public class ShowProfile extends GraphicalObject {
         // x und y bestimmen die obere linke Ecke der Profilkarte
         this.x = pX;
         this.y = pY;
-        this.breite = 300;
+        this.breite = 250;
         this.hoehe = 200;
         this.aktuellesProfil = profil; // Startet unsichtbar/leer
     }
