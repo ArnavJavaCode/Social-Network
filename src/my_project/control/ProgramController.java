@@ -170,30 +170,40 @@ public class ProgramController {
         }
     }
 
-    public void visualisiereSuchbaum() {
+    public void visualisiereSuchbaum(String hobbyZuFaerben) {
         if (bst != null && !bst.isEmpty()) {
-            zeichneSuchbaumRekursiv(bst, 1000, 300, 180);
+            zeichneSuchbaumRekursiv(bst, 1000, 300, 180, hobbyZuFaerben);
         }
     }
 
 
-    private void zeichneSuchbaumRekursiv(BinarySearchTree<NutzerProfil> baum, int x, int y, int abstand) {
+    private void zeichneSuchbaumRekursiv(BinarySearchTree<NutzerProfil> baum, int x, int y, int abstand, String hobbyZuFaerben) {
         if (baum == null || baum.isEmpty()) return;
 
+        NutzerProfil profil = baum.getContent();
         String name = baum.getContent().getNutzername();
+
+
         BSTKnoten aktuellerKnoten = new BSTKnoten(x, y, name);
+
+        // --- HIER PASSIERT DIE MAGIE ---
+        // Wenn gerade ein Hobby gesucht wird UND die Person dieses Hobby hat UND öffentlich ist:
+        if (hobbyZuFaerben != null && profil.getHobby().equalsIgnoreCase(hobbyZuFaerben) && !profil.isPrivate()) {
+            aktuellerKnoten.setStatus(2); // Direkt beim Zeichnen blau färben!
+        }
+
         viewController.draw(aktuellerKnoten);
 
         if (!baum.getLeftTree().isEmpty()) {
             BSTKnoten kindLinks = new BSTKnoten(x - abstand, y + 80, baum.getLeftTree().getContent().getNutzername());
             viewController.draw(new BSTKante(aktuellerKnoten, kindLinks));
-            zeichneSuchbaumRekursiv(baum.getLeftTree(), x - abstand, y + 80, abstand / 2);
+            zeichneSuchbaumRekursiv(baum.getLeftTree(), x - abstand, y + 80, abstand / 2, hobbyZuFaerben);
         }
 
         if (!baum.getRightTree().isEmpty()) {
             BSTKnoten kindRechts = new BSTKnoten(x + abstand, y + 80, baum.getRightTree().getContent().getNutzername());
             viewController.draw(new BSTKante(aktuellerKnoten, kindRechts));
-            zeichneSuchbaumRekursiv(baum.getRightTree(), x + abstand, y + 80, abstand / 2);
+            zeichneSuchbaumRekursiv(baum.getRightTree(), x + abstand, y + 80, abstand / 2, hobbyZuFaerben);
         }
     }
 
@@ -235,6 +245,8 @@ public class ProgramController {
 
                 treffer.next();
             }
+
+            visualisiereSuchbaum(hobby);
         }
         else {
             boolean hobbyIstEigentlichPrivat = false;
@@ -280,9 +292,9 @@ public class ProgramController {
      */
     public void startProgram() {
         jim = new NutzerProfil("Jimmy", "Klavier", false);
-        dan = new NutzerProfil("Danskie", "Programmieren", true);
-        lucy = new NutzerProfil("Lucy", "Klavier", false);
-        nathan = new NutzerProfil("Nathan", "Fußball", false);
+        dan = new NutzerProfil("Da", "Programmieren", true);
+        lucy = new NutzerProfil("Lu", "Klavier", false);
+        nathan = new NutzerProfil("Nath", "Fußball", false);
         Doakes = new NutzerProfil("Doakes", "Gitarre", false);
         Jimmy = new NutzerProfil("Dan", "Programmieren", false);
         Nancy = new NutzerProfil("Nancy", "Gitarre", false);
@@ -336,7 +348,7 @@ public class ProgramController {
         socialGraph.addEdge(new Edge(danV, AssadV, 1));
 
         visualisiereGraph();
-        visualisiereSuchbaum();
+        visualisiereSuchbaum(null);
 
 
     }
@@ -420,6 +432,8 @@ public class ProgramController {
             while (!offeneFenster.isEmpty()) {
                 offeneFenster.remove();
             }
+
+            visualisiereSuchbaum(null);
 
         }
     }

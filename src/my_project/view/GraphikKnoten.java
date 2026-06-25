@@ -24,7 +24,6 @@ public class GraphikKnoten extends GraphicalObject {
         Color statusFarbe = switch (status) {
             case 1 -> new Color(233, 85, 152);       // Rot / Pink
             case 2 -> new Color(86, 204, 121);       // Grün
-            case 3 -> new Color(87, 177, 199);       // Blau
             default -> new Color(170, 170, 180);     // Grau / Normal
         };
 
