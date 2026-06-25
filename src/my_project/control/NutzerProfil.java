@@ -25,13 +25,13 @@ public class NutzerProfil implements ComparableContent<NutzerProfil> {
     public boolean isGreater(NutzerProfil pContent) {
         if (pContent == null) return false;
         // Alphabetischer Vergleich der Nutzernamen
-        return this.nutzername.compareTo(pContent.getNutzername()) > 0;
+        return this.nutzername.compareToIgnoreCase(pContent.getNutzername()) > 0;
     }
 
     @Override
     public boolean isLess(NutzerProfil pContent) {
         if (pContent == null) return false;
-        return this.nutzername.compareTo(pContent.getNutzername()) < 0;
+        return this.nutzername.compareToIgnoreCase(pContent.getNutzername()) < 0;
     }
 
     @Override
