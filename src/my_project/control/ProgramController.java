@@ -41,7 +41,7 @@ public class ProgramController {
     private NutzerProfil nathan;
     private NutzerProfil Doakes;
     private NutzerProfil Jimmy;
-    private NutzerProfil Nancy;
+    private NutzerProfil Leila;
     private NutzerProfil Assad;
     private NutzerProfil Mike;
     private NutzerProfil Amy;
@@ -297,7 +297,7 @@ public class ProgramController {
         nathan = new NutzerProfil("Nath", "Fußball", false);
         Doakes = new NutzerProfil("Doakes", "Gitarre", false);
         Jimmy = new NutzerProfil("Dan", "Programmieren", false);
-        Nancy = new NutzerProfil("Nancy", "Gitarre", false);
+        Leila = new NutzerProfil("Leila", "Gitarre", false);
         Mike = new NutzerProfil("Mike", "Singen", false);
         Assad = new NutzerProfil("Assad", "Fußball", false);
         Chris = new NutzerProfil("Chris", "Malen", false);
@@ -311,7 +311,7 @@ public class ProgramController {
         fuegeHobbyHinzu(nathan.getHobby());
         fuegeHobbyHinzu(Doakes.getHobby());
         fuegeHobbyHinzu(Jimmy.getHobby());
-        fuegeHobbyHinzu(Nancy.getHobby());
+        fuegeHobbyHinzu(Leila.getHobby());
         fuegeHobbyHinzu(Assad.getHobby());
         fuegeHobbyHinzu(Chris.getHobby());
         fuegeHobbyHinzu(Mike.getHobby());
@@ -322,7 +322,7 @@ public class ProgramController {
         bst.insert(nathan);
         bst.insert(Doakes);
         bst.insert(Jimmy);
-        bst.insert(Nancy);
+        bst.insert(Leila);
         bst.insert(Assad);
         bst.insert(Chris);
         bst.insert(Susan);
@@ -335,7 +335,7 @@ public class ProgramController {
         Vertex nathanV = new Vertex(nathan.getNutzername());
         Vertex DoakesV = new Vertex(Doakes.getNutzername());
         Vertex JimmyV = new Vertex(Jimmy.getNutzername());
-        Vertex NancyV = new Vertex(Nancy.getNutzername());
+        Vertex LeilaV = new Vertex(Leila.getNutzername());
         Vertex AssadV = new Vertex(Assad.getNutzername());
         Vertex ChrisV = new Vertex(Chris.getNutzername());
         Vertex SusanV = new Vertex(Susan.getNutzername());
@@ -349,7 +349,7 @@ public class ProgramController {
         socialGraph.addVertex(nathanV);
         socialGraph.addVertex(DoakesV);
         socialGraph.addVertex(JimmyV);
-        socialGraph.addVertex(NancyV);
+        socialGraph.addVertex(LeilaV);
         socialGraph.addVertex(AssadV);
         socialGraph.addVertex(ChrisV);
         socialGraph.addVertex(SusanV);
@@ -365,7 +365,7 @@ public class ProgramController {
         socialGraph.addEdge(new Edge(danV, nathanV, 1));
         socialGraph.addEdge(new Edge(danV, DoakesV, 1));
         socialGraph.addEdge(new Edge(danV, JimmyV, 1));
-        socialGraph.addEdge(new Edge(danV, NancyV, 1));
+        socialGraph.addEdge(new Edge(danV, LeilaV, 1));
         socialGraph.addEdge(new Edge(danV, AssadV, 1));
         socialGraph.addEdge(new Edge(ChrisV, SusanV, 1));
         socialGraph.addEdge(new Edge(MikeV, ChrisV, 1));
@@ -373,7 +373,7 @@ public class ProgramController {
         socialGraph.addEdge(new Edge(AmyV, lucyV, 1));
         socialGraph.addEdge(new Edge(AmyV, SusanV, 1));
         socialGraph.addEdge(new Edge(danV, SusanV, 1));
-        socialGraph.addEdge(new Edge(MikeV, NancyV, 1));
+        socialGraph.addEdge(new Edge(MikeV, LeilaV, 1));
 
         visualisiereGraph();
         visualisiereSuchbaum(null);
