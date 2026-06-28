@@ -215,7 +215,7 @@ public class ProgramController {
             NutzerProfil profil = treffer.getContent();
             xpos+=270;
 
-            Vertex mainNutzer = socialGraph.getVertex("Danskie");
+            Vertex mainNutzer = socialGraph.getVertex("Da");
             Vertex gesuchterNutzer = socialGraph.getVertex(profil.getNutzername());
 
 
