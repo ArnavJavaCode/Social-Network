@@ -43,10 +43,15 @@ public class ProgramController {
     private NutzerProfil Jimmy;
     private NutzerProfil Nancy;
     private NutzerProfil Assad;
+    private NutzerProfil Mike;
+    private NutzerProfil Amy;
+    private NutzerProfil Va;
+    private NutzerProfil Chris;
+    private NutzerProfil Susan;
 
 
-    int[] manuelleXPositionen = {200, 400, 600, 400, 100, 150, 200, 250};
-    int[] manuelleYPositionen = {300, 300, 300, 500, 300, 350, 400, 450};
+    int[] manuelleXPositionen = {200, 400, 600, 400, 100, 150, 200, 250, 100, 50, 600, 50, 410};
+    int[] manuelleYPositionen = {300, 300, 300, 500, 300, 450, 400, 450, 500, 100, 550, 390, 120};
     private boolean isDialogOffen = false;
     private boolean tasteGedrueckt = false;
     private boolean hobbyexistenz = false;
@@ -172,7 +177,7 @@ public class ProgramController {
 
     public void visualisiereSuchbaum(String hobbyZuFaerben) {
         if (bst != null && !bst.isEmpty()) {
-            zeichneSuchbaumRekursiv(bst, 1000, 300, 180, hobbyZuFaerben);
+            zeichneSuchbaumRekursiv(bst, 1100, 200, 180, hobbyZuFaerben);
         }
     }
 
@@ -293,7 +298,12 @@ public class ProgramController {
         Doakes = new NutzerProfil("Doakes", "Gitarre", false);
         Jimmy = new NutzerProfil("Dan", "Programmieren", false);
         Nancy = new NutzerProfil("Nancy", "Gitarre", false);
+        Mike = new NutzerProfil("Mike", "Singen", false);
         Assad = new NutzerProfil("Assad", "Fußball", false);
+        Chris = new NutzerProfil("Chris", "Malen", false);
+        Susan = new NutzerProfil("Susan", "Fußball", false);
+        Va = new NutzerProfil("Va", "Singen", false);
+        Amy = new NutzerProfil("Amy", "Gitarre", true);
 
         fuegeHobbyHinzu(jim.getHobby());
         fuegeHobbyHinzu(dan.getHobby());
@@ -303,6 +313,8 @@ public class ProgramController {
         fuegeHobbyHinzu(Jimmy.getHobby());
         fuegeHobbyHinzu(Nancy.getHobby());
         fuegeHobbyHinzu(Assad.getHobby());
+        fuegeHobbyHinzu(Chris.getHobby());
+        fuegeHobbyHinzu(Mike.getHobby());
 
         bst.insert(dan);
         bst.insert(jim);
@@ -312,6 +324,10 @@ public class ProgramController {
         bst.insert(Jimmy);
         bst.insert(Nancy);
         bst.insert(Assad);
+        bst.insert(Chris);
+        bst.insert(Susan);
+        bst.insert(Va);
+        bst.insert(Amy);
 
         Vertex jimV = new Vertex(jim.getNutzername());
         Vertex danV = new Vertex(dan.getNutzername());
@@ -321,6 +337,11 @@ public class ProgramController {
         Vertex JimmyV = new Vertex(Jimmy.getNutzername());
         Vertex NancyV = new Vertex(Nancy.getNutzername());
         Vertex AssadV = new Vertex(Assad.getNutzername());
+        Vertex ChrisV = new Vertex(Chris.getNutzername());
+        Vertex SusanV = new Vertex(Susan.getNutzername());
+        Vertex VaV = new Vertex(Va.getNutzername());
+        Vertex MikeV = new Vertex(Mike.getNutzername());
+        Vertex AmyV = new Vertex(Amy.getNutzername());
 
         socialGraph.addVertex(danV);
         socialGraph.addVertex(jimV);
@@ -330,6 +351,11 @@ public class ProgramController {
         socialGraph.addVertex(JimmyV);
         socialGraph.addVertex(NancyV);
         socialGraph.addVertex(AssadV);
+        socialGraph.addVertex(ChrisV);
+        socialGraph.addVertex(SusanV);
+        socialGraph.addVertex(VaV);
+        socialGraph.addVertex(MikeV);
+        socialGraph.addVertex(AmyV);
 
 
         socialGraph.addEdge(new Edge(jimV, danV, 1));
@@ -341,6 +367,13 @@ public class ProgramController {
         socialGraph.addEdge(new Edge(danV, JimmyV, 1));
         socialGraph.addEdge(new Edge(danV, NancyV, 1));
         socialGraph.addEdge(new Edge(danV, AssadV, 1));
+        socialGraph.addEdge(new Edge(ChrisV, SusanV, 1));
+        socialGraph.addEdge(new Edge(MikeV, ChrisV, 1));
+        socialGraph.addEdge(new Edge(VaV, lucyV, 1));
+        socialGraph.addEdge(new Edge(AmyV, lucyV, 1));
+        socialGraph.addEdge(new Edge(AmyV, SusanV, 1));
+        socialGraph.addEdge(new Edge(danV, SusanV, 1));
+        socialGraph.addEdge(new Edge(MikeV, NancyV, 1));
 
         visualisiereGraph();
         visualisiereSuchbaum(null);
